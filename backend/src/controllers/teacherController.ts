@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import db from '../database/dbConnection';
 import { v4 as uuid } from 'uuid';
 
+import scheduler from 'node-cron';
+
 export const createTeacherTable = catchAsync(
   async (req: Request, res: Response) => {
     let query =
@@ -10,6 +12,7 @@ export const createTeacherTable = catchAsync(
     db.query(query, (err, result) => {
       if (err) {
         console.log(err);
+        res.status(500).send('Table not created !');
       } else {
         console.log(result);
         return res.status(200).send('Teacher table created !');
@@ -23,7 +26,7 @@ export const createTeacher = catchAsync(async (req: Request, res: Response) => {
   let name: String = req.body.name || '';
   let email: String = req.body.email || '';
   let institution: String = req.body.institution || '';
-  let data = { id, name, institution };
+  let data = { id, name, email, institution };
   let query = 'insert into `Teacher` set ?';
   db.query(query, data, (err, result) => {
     if (err) res.status(500).send('Insertion Failed !');
@@ -33,6 +36,9 @@ export const createTeacher = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getTeacher = catchAsync(async (req: Request, res: Response) => {
+  scheduler.schedule('* * * * * *', () => {
+    // console.log('Scheduler running !');
+  });
   let id: String = req.body.id || '';
   let query = 'select * from `Teacher` where `id` = ?';
   db.query(query, [id], (err, result: any) => {
