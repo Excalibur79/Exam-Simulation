@@ -3,6 +3,8 @@ import * as teacherController from '../../../controllers/teacherController';
 
 const router = express.Router();
 
-router.get('/createTeacher', teacherController.createTeacher);
+router.post('/createTeacher', teacherController.createTeacher);
+router.get('/createTeacherTable', teacherController.createTeacherTable);
+router.post('/getTeacher', teacherController.getTeacher);
 
 export default router;

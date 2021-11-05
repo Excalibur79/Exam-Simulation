@@ -8,6 +8,8 @@ import db from './database/dbConnection';
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/teacher', teacherRoutes);
 app.use('/student', studentRoutes);
 app.use('/exam', examRoutes);
