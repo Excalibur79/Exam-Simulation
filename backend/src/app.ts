@@ -21,5 +21,5 @@ db.connect((err) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Servre started on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
