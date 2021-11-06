@@ -1,5 +1,7 @@
 import catchAsync from '../utils/catchAsync';
-import e, { Response, Request, NextFunction } from 'express';
+import { Response, Request, NextFunction } from 'express';
+import CustomError from '../errors/custom-error';
+import { SuccessResponse } from '../utils/response-handler';
 import { getDb } from '../database/dbConnection';
 import scheduler from 'node-cron';
 import { v4 as uuid } from 'uuid';
@@ -11,7 +13,7 @@ export const createExamTable = catchAsync(
       'create table `Exam` ( id varchar(50) , subject varchar(50) , questions json , startTime datetime , duration integer , constraint exam_pk primary key(id) )';
     const result = await db.execute(query);
     if (result) res.status(200).send('Exam Table Created !');
-    else res.status(500).send('Exam Table not created !');
+    else throw new CustomError('Exam Table not Created !', 500);
   }
 );
 
@@ -30,7 +32,7 @@ export const createExam = catchAsync(async (req: Request, res: Response) => {
     data.duration,
   ]);
   if (result) res.status(200).send('Exam Created');
-  else res.status(500).send('Exam Not Created !');
+  else throw new CustomError('Exam not Created !', 500);
 });
 
 const evaluateExam = (examId: String) => {
