@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "Backend",
   "version": "1.0.0",
   "description": "",
   "main": "./src/app.ts",
