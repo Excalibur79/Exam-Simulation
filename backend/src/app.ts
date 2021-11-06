@@ -1,23 +1,37 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 
-import teacherRoutes from './routes/api/teacher/route';
-import studentRoutes from './routes/api/student/route';
-import examRoutes from './routes/api/exam/route';
+import CustomError from './errors/custom-error';
+import { SuccessResponse, ErrorResponse } from './utils/response-handler';
 
-import db from './database/dbConnection';
+import examRoutes from './routes/api/exam/routes';
+import userRoutes from './routes/api/user/routes';
+
+import { connectDatabase } from './database/dbConnection';
 
 const app = express();
 
-app.use('/teacher', teacherRoutes);
-app.use('/student', studentRoutes);
+app.use(express.json());
+
 app.use('/exam', examRoutes);
+app.use('/user', userRoutes);
 
 //connecting database
-db.connect((err) => {
-  if (err) throw err;
-  else console.log('Database Connected !');
-});
+connectDatabase();
 //===================
+
+// All middlewares goes above this
+
+app.all('*', (req: Request, res: Response, next: NextFunction) => {
+  const err = new CustomError('Non-existant route', 404);
+  next(err);
+});
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).json(ErrorResponse(err));
+  }
+  return res.status(500).json(ErrorResponse(err));
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
