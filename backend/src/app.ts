@@ -10,7 +10,7 @@ import { connectDatabase } from './database/dbConnection';
 const app = express();
 
 app.use(express.json());
-
+require('dotenv').config();
 app.use('/exam', examRoutes);
 app.use('/user', userRoutes);
 
