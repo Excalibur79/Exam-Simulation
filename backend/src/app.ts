@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import CustomError from './errors/custom-error';
 import { SuccessResponse, ErrorResponse } from './utils/response-handler';
 
-import examRoutes from './routes/api/exam/route';
+import examRoutes from './routes/api/exam/routes';
 import userRoutes from './routes/api/user/routes';
 
 import { connectDatabase } from './database/dbConnection';

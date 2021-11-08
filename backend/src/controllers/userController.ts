@@ -8,13 +8,12 @@ import scheduler from 'node-cron';
 import { v4 as uuid } from 'uuid';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import router from '../routes/api/exam/route';
 
 export const createUserTable = catchAsync(
   async (req: Request, res: Response) => {
     const db = getDb();
     let query =
-      'create table User ( id varchar(50) not null, name varchar(50) , email varchar(50) , password longtext ,institution longtext ,phoneNumber varchar(50) ,constraint user_pk primary key(id) )';
+      'create table User ( id varchar(50) not null, name varchar(50) , email varchar(50) ,image longtext, password longtext ,institution longtext ,phoneNumber varchar(50) ,constraint user_pk primary key(id) )';
     const result = await db.execute(query);
     if (result) res.status(200).send('User Table Created !');
     else throw new CustomError('User Table Not   created  !', 500);
@@ -46,13 +45,14 @@ export const registerUser = catchAsync(async (req: Request, res: Response) => {
   if (rows.length > 0)
     throw new CustomError('User with this email id already exists !', 500);
   let registerUser =
-    'insert into `User` (`id`,`name`,`email`,`password`,`institution`,`phoneNumber`) values(?,?,?,?,?,?)';
+    'insert into `User` (`id`,`name`,`email`,`image`,`password`,`institution`,`phoneNumber`) values(?,?,?,?,?,?,?)';
   const salt = await bcrypt.genSalt();
   const passwordHash = await bcrypt.hash(password, salt);
   const result = await db.execute(registerUser, [
     uuid(),
     name,
     email,
+    '',
     passwordHash,
     institution,
     phoneNumber,
@@ -93,6 +93,16 @@ export const loginUser = catchAsync(async (req: Request, res: Response) => {
 
 //logout ========================================
 export const logoutUser = catchAsync(
-  async (req: CustomRequest, res: Response) => {}
+  async (req: CustomRequest, res: Response) => {
+    res.status(200).send('Logout Successfull !');
+  }
 );
 //================================================
+
+//edit==========================================
+export const editUser = catchAsync(
+  async (req: CustomRequest, res: Response) => {
+    console.log(req.files);
+  }
+);
+//==============================================
