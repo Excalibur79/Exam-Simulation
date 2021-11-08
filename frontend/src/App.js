@@ -1,22 +1,25 @@
-
+import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {Switch,Route} from 'react-router-dom'; 
+import Signup from './Signup';
+import Login from './Login';
+import { Container } from '@material-ui/core';
 
 
-const App = () => {
 
-
+function App() {
   return (
-    <Router>
-      <main >
-        {/* <Route path='/' component={ABCD} /> */}
-        PROJECT STARTING  :)
+    <>
+    <Container maxwidth="md">
+    <div classname="app">
+      <Switch>
+        <Route path="/Signup" exact component={Signup}/>
+        <Route path="/Login" exact component={Login}/>
 
-
-
-      </main>
-    </Router>
-  )
+      </Switch>
+    </div>
+    </Container>
+    </>
+  );
 }
-
 export default App;
