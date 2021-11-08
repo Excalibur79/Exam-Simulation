@@ -101,8 +101,6 @@ export const logoutUser = catchAsync(
 
 //edit==========================================
 export const editUser = catchAsync(
-  async (req: CustomRequest, res: Response) => {
-    console.log(req.files);
-  }
+  async (req: CustomRequest, res: Response) => {}
 );
 //==============================================
