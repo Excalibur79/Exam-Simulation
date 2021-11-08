@@ -11,6 +11,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import MarkdownIt from 'markdown-it'
 import MdEditor from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css';
+// import SaveIcon from '@mui/icons-material/Save';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import './examCreation.css';
 
@@ -22,10 +23,11 @@ const useStyles = makeStyles({
         fontSize: "1.6rem"
     },
     heading: {
-        fontSize: "3rem",
+        fontSize: "3.2rem",
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: "4rem"
     },
     editor: {
         marginTop: "2rem",
@@ -34,6 +36,21 @@ const useStyles = makeStyles({
     addQuestionBar: {
         paddingTop: "2rem",
         height: "2rem",
+
+    },
+    button: {
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "2.4rem",
+        padding: "1.6rem",
+        fontSize: "1.2rem",
+        borderRadius: ".4rem",
+        color: '#fff',
+        // backgroundColor: '#1AB273',
+        // '&:hover': {
+        //   backgroundColor: '#1AB273',
+        // },
     },
 });
 
@@ -46,19 +63,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 var count = 0;
 
-const ExamCreation = () => {
+
+const Editor_Markdown = () => {
 
     const classes = useStyles();
     const history = useHistory();
     const mdParser = new MarkdownIt();
 
     const [htmlText, setHtmlText] = useState();
-    const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
-    const [add, setAdd] = useState(0);
 
-    const handleChange = (newValue) => {
-        setValue(newValue);
-    };
 
     const ImageUploadHandler = async (file, callback) => {
         console.log("file : ", file);
@@ -81,35 +94,39 @@ const ExamCreation = () => {
         // }
     }
 
+    return (
+        <div className={classes.editor}>
+            <MdEditor
+                style={{ height: "36rem" }}
+                renderHTML={(text) => mdParser.render(text)}
+                onChange={EditorChangeHandler}
+                onImageUpload={ImageUploadHandler}
+                placeholder={"Start framing question..."}
+            />
+        </div>
+    )
+}
+
+const ExamCreation = () => {
+
+    const classes = useStyles();
+    const history = useHistory();
+
+    const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
+    const [add, setAdd] = useState(0);
+
+    const handleChange = (newValue) => {
+        setValue(newValue);
+    };
+
     const AddQuestionHandler = () => {
         console.log("helloasdfaf");
-        {
-            (
-                <div className={classes.editor}>
-                    <MdEditor
-                        style={{ height: "36rem" }}
-                        renderHTML={(text) => mdParser.render(text)}
-                        onChange={EditorChangeHandler}
-                        onImageUpload={ImageUploadHandler}
-                        placeholder={"Start framing question..."}
-                    />
-                </div>)
-        }
     }
 
     useEffect(() => {
         if (add) {
-            return (
-                <div className={classes.editor}>
-                    <MdEditor
-                        style={{ height: "36rem" }}
-                        renderHTML={(text) => mdParser.render(text)}
-                        onChange={EditorChangeHandler}
-                        onImageUpload={ImageUploadHandler}
-                        placeholder={"Start framing question..."}
-                    />
-                </div>
-            )
+            console.log("helloasdfaf");
+
         }
     }, [add]);
 
@@ -118,25 +135,17 @@ const ExamCreation = () => {
 
     return (
         <div className={classes.root} >
-            <p className={classes.heading} > University of Engineering & Management</p>
+            <div className={classes.heading} > University of Engineering & Management</div>
 
-            <p> Full Marks : 20  </p>
+            <p style={{ fontSize: "1.89rem", fontWeight: "800" }} > Full Marks : 20  </p>
             <div>
                 <TextField
-                    // id="standard-password-input"
-                    // label="Password"
-                    // type="password"
-                    // autoComplete="current-password"
-                    // variant="standard"
-
-
                     required
                     id="standard-required"
                     label="Subject"
-                    // defaultValue="Hello World"
                     variant="standard"
                     fullWidth={true}
-                    inputProps={{ style: { fontSize: '1.9rem' } }}
+                    inputProps={{ style: { fontSize: '1.6rem' } }}
                     style={{ marginTop: '0.5rem', width: '22rem' }}
                 // InputProps={{ fontSize: '2rem' }}
                 // classes={{ fontSize: '2rem' }}
@@ -170,11 +179,11 @@ const ExamCreation = () => {
             </div>
 
 
-            <div style={{ marginBottom: "9rem" }} >
+            <div style={{ marginBottom: "9rem", marginTop: "2rem", paddingTop: "1.4rem" }} >
                 <Box lg={{ flexGrow: 1 }}>
                     <Grid container spacing={2} className={classes.addQuestionBar} >
                         <Grid item xs={12} lg={12} md={12} >
-                            <Item style={{ fontSize: "2rem" }} onClick={() => setAdd(count++)} >
+                            <Item style={{ fontSize: "2rem", backgroundColor: "#e63946", color: "#fff", fontWeight: "600" }} onClick={() => setAdd(true)} >
                                 <AddToPhotosIcon fontSize="large" /> Add Question
                             </Item>
                         </Grid>
@@ -182,17 +191,13 @@ const ExamCreation = () => {
                 </Box>
             </div>
 
-            <div className={classes.editor}>
-                <MdEditor
-                    style={{ height: "36rem" }}
-                    renderHTML={(text) => mdParser.render(text)}
-                    onChange={EditorChangeHandler}
-                    onImageUpload={ImageUploadHandler}
-                    placeholder={"Start framing question..."}
-                />
-            </div>
+            <Editor_Markdown />
 
-
+            <Grid container className={classes.button} >
+                <Grid item xs={12} lg={12} md={12} >
+                    <button className="custom-btn btn-9">  {/* <SaveIcon fontSize="large" style={{ paddingRight: ".6rem" }} /> */} Save</button>
+                </Grid>
+            </Grid>
 
 
         </div >
