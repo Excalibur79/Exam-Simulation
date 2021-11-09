@@ -22,9 +22,6 @@ export const createUserTable = catchAsync(
 
 export const getuser = catchAsync(async (req: CustomRequest, res: Response) => {
   const db = getDb();
-  scheduler.schedule('* * * * * *', () => {
-    // console.log('Scheduler running !');
-  });
   let id: String = req.body.id || '';
   let query = 'select * from `User` where `id` = ?';
   const [rows, fields] = await db.execute(query, [id]);
@@ -104,3 +101,23 @@ export const editUser = catchAsync(
   async (req: CustomRequest, res: Response) => {}
 );
 //==============================================
+
+export const registerInExam = catchAsync(
+  async (req: CustomRequest, res: Response) => {
+    const { examId, userId } = req.body;
+    //check if the ids are valid then insert in exam-participants table
+  }
+);
+
+export const startExam = catchAsync(
+  async (req: CustomRequest, res: Response) => {
+    const db = getDb();
+    const { examId } = req.body;
+    let query = 'select * from `Exam` where id=?';
+    const [rows, fields] = await db.execute(query, [examId]);
+    if (rows.length != 1) throw new CustomError('Exam Not Found !', 500);
+    if (!rows[0].ongoing)
+      throw new CustomError('Exam has not started yet !', 500);
+    return res.status(200).json(SuccessResponse(rows[0], 'Exam started !'));
+  }
+);

@@ -10,10 +10,21 @@ export const createExamTable = catchAsync(
   async (req: Request, res: Response) => {
     const db = getDb();
     let query =
-      'create table `Exam` ( id varchar(50) , subject varchar(50) ,userId varchar(50), questions json , startTime datetime , duration integer , constraint exam_pk primary key(id) )';
+      'create table `Exam` ( id varchar(50) , subject varchar(50) ,userId varchar(50), questions json , startTime datetime , duration integer ,ongoing boolean default False, constraint exam_pk primary key(id) )';
     const result = await db.execute(query);
     if (result) res.status(200).send('Exam Table Created !');
     else throw new CustomError('Exam Table not created !', 500);
+  }
+);
+
+export const createExamParticipantsTable = catchAsync(
+  async (req: Request, res: Response) => {
+    const db = getDb();
+    let query =
+      'create table `Exam-Participants` (id integer auto_increment ,examId longtext , participantId longtext ,answers json ,totalScore integer , constraint pk primary key(id) )';
+    const result = await db.execute(query);
+    if (result) res.status(200).send('Exam-Participants table created !');
+    else throw new CustomError('Exam-Participants table not created!', 500);
   }
 );
 
@@ -32,8 +43,15 @@ export const createExam = catchAsync(async (req: Request, res: Response) => {
     new Date(),
     data.duration,
   ]);
-  if (result) res.status(200).send('Exam Created');
-  else throw new CustomError('Exam  not created !', 500);
+  if (result) {
+    res.status(200).send('Exam Created');
+    scheduler.schedule('* * * * * *', () => {
+      // scheduules start exam
+    });
+    scheduler.schedule('* * * * * *', () => {
+      // scheduules end exam update ongoing in exam and start Evaluation
+    });
+  } else throw new CustomError('Exam  not created !', 500);
 });
 
 const evaluateExam = (examId: String) => {
