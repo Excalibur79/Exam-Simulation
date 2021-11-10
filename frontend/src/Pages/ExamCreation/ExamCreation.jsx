@@ -21,7 +21,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import draftToHtml from 'draftjs-to-html';
 // import htmlToDraft from 'html-to-draftjs';
 
-
+import 'react-quill/dist/quill.snow.css'; // ES6
+import ReactQuill from 'react-quill'; // ES6
 
 
 const useStyles = makeStyles({
@@ -115,13 +116,16 @@ const ExamCreation = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
+  // const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
   const [add, setAdd] = useState(0);
   const [editors, setEditors] = useState([]);
 
 
 
   const [editorState, SetEditorState] = useState([]);
+  const [text, setText] = useState('');
+  const [editorHtml, seteditorHtml] = useState('');
+  const [value, setValue] = useState("");
 
 
   const onEditorStateChange = () => {
@@ -129,6 +133,26 @@ const ExamCreation = () => {
   }
 
 
+  const handleEditorChange = (value) => {
+    setText({ text: value });
+    console.log(value);
+  }
+
+
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+  };
 
 
 
@@ -145,6 +169,7 @@ const ExamCreation = () => {
     console.log(editors);
   }, [editors]);
 
+  console.log(value);
 
 
   return (
@@ -229,6 +254,8 @@ const ExamCreation = () => {
       </Grid>
 
 
+
+      {/*  */}
       <Editor
         // editorState={editorState}
         toolbarClassName="toolbarClassName"
@@ -243,6 +270,19 @@ const ExamCreation = () => {
         value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
       /> */}
 
+
+      {/* QUILL  */}
+      <ReactQuill
+        value={text}
+        // onChange={handleEditorChange}
+        onChange={setValue}
+
+        theme="snow"
+        placeholder={"Write something awesome..."}
+        modules={modules}
+      // formats={formats}
+
+      />
 
 
     </div>
