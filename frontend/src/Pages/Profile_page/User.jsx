@@ -22,8 +22,6 @@ const User = () => {
 
 
 
-
-
     const remove = () => {
 
         setremovePhoto(true);
