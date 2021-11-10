@@ -7,6 +7,10 @@ import userRoutes from './routes/api/user/routes';
 
 import { connectDatabase } from './database/dbConnection';
 
+
+
+
+
 const app = express();
 
 app.use(express.json());
