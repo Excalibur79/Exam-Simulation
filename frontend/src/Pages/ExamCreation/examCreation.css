@@ -1,49 +1,57 @@
 .css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root {
-    font-size: 1.4rem !important;
+  font-size: 1.4rem !important;
 }
 
 .custom-btn {
-    color: #000;
-    font-size: 1.7rem;
-    width: 110px;
-    height: 35px;
-    padding: 10px 25px;
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+  color: #000;
+  font-size: 1.7rem;
+  width: 110px;
+  height: 35px;
+  padding: 10px 25px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
 }
 
 .btn-9 {
-    color: #000;
-    border: 1px solid #f94144;
-    box-shadow: 0 0 5px #f94144, 0 0 5px #f94144 inset;
-    z-index: 2;
-    transition: all 0.3s ease;
-    overflow: hidden;
+  color: #000;
+  border: 1px solid #f94144;
+  box-shadow: 0 0 5px #f94144, 0 0 5px #f94144 inset;
+  z-index: 2;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .btn-9:after {
-    position: absolute;
-    content: " ";
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s ease;
+  position: absolute;
+  content: ' ';
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
 }
 
 .btn-9:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .btn-9:hover:after {
-    background: #f94144;
-    -webkit-transform: scale(2) rotate(180deg);
-    transform: scale(2) rotate(180deg);
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 1), -4px -4px 6px 0 rgba(116, 125, 136, .2), inset -4px -4px 6px 0 rgba(255, 255, 255, 1), inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+  background: #f94144;
+  -webkit-transform: scale(2) rotate(180deg);
+  transform: scale(2) rotate(180deg);
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 1), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 1), inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
+}
+
+.toolbarClassName {
+}
+.wrapperClassName {
+}
+.editorClassName {
 }

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@tinymce/tinymce-react": "^3.13.0",
+    "quill-image-drop-module": "^1.0.3",
+    "quill-image-resize-module": "^3.0.0",
+    "quill-upload": "^0.0.5-rc.1"
+  }
+}
