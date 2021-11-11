@@ -2,12 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { TextField, Grid, Paper, Box, styled } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import {
-  DateTimePicker,
-  LocalizationProvider,
-  DesktopDatePicker,
-  TimePicker,
-} from '@mui/lab';
+import { DateTimePicker, LocalizationProvider, DesktopDatePicker, TimePicker, } from '@mui/lab';
 // import DateAdapter from '@mui/lab/AdapterMoment';
 // import DateAdapter from '@mui/lab/AdapterDateFns';
 // import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -15,10 +10,20 @@ import { useHistory, useParams } from 'react-router-dom';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
+// import Editor from 'react-markdown-editor-lite';
 // import SaveIcon from '@mui/icons-material/Save';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import './examCreation.css';
-import Editor from 'react-markdown-editor-lite';
+
+
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
+
+import 'react-quill/dist/quill.snow.css'; // ES6
+import ReactQuill from 'react-quill'; // ES6
+
 
 const useStyles = makeStyles({
   root: {
@@ -111,9 +116,45 @@ const ExamCreation = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
+  // const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
   const [add, setAdd] = useState(0);
   const [editors, setEditors] = useState([]);
+
+
+
+  const [editorState, SetEditorState] = useState([]);
+  const [text, setText] = useState('');
+  const [editorHtml, seteditorHtml] = useState('');
+  const [value, setValue] = useState("");
+
+
+  const onEditorStateChange = () => {
+
+  }
+
+
+  const handleEditorChange = (value) => {
+    setText({ text: value });
+    console.log(value);
+  }
+
+
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+  };
+
+
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -128,11 +169,8 @@ const ExamCreation = () => {
     console.log(editors);
   }, [editors]);
 
-  useEffect(() => {
-    if (add) {
-      console.log('helloasdfaf');
-    }
-  }, [add]);
+  console.log(value);
+
 
   return (
     <div className={classes.root}>
@@ -154,8 +192,8 @@ const ExamCreation = () => {
           fullWidth={true}
           inputProps={{ style: { fontSize: '1.6rem' } }}
           style={{ marginTop: '0.5rem', width: '22rem' }}
-          // InputProps={{ fontSize: '2rem' }}
-          // classes={{ fontSize: '2rem' }}
+        // InputProps={{ fontSize: '2rem' }}
+        // classes={{ fontSize: '2rem' }}
         />
 
         {/* <LocalizationProvider dateAdapter={AdapterDateFns} >
@@ -183,13 +221,7 @@ const ExamCreation = () => {
                 </LocalizationProvider> */}
       </div>
 
-      <div
-        style={{
-          marginBottom: '9rem',
-          marginTop: '2rem',
-          paddingTop: '1.4rem',
-        }}
-      >
+      <div style={{ marginBottom: '9rem', marginTop: '2rem', paddingTop: '1.4rem', }}      >
         <Box lg={{ flexGrow: 1 }}>
           <Grid container spacing={2} className={classes.addQuestionBar}>
             <Grid item xs={12} lg={12} md={12}>
@@ -208,6 +240,7 @@ const ExamCreation = () => {
           </Grid>
         </Box>
       </div>
+
       {editors.map((x, index) => {
         return <Editor_Markdown key={index} />;
       })}
@@ -215,12 +248,43 @@ const ExamCreation = () => {
       <Grid container className={classes.button}>
         <Grid item xs={12} lg={12} md={12}>
           <button className="custom-btn btn-9">
-            {' '}
-            {/* <SaveIcon fontSize="large" style={{ paddingRight: ".6rem" }} /> */}{' '}
             Save
           </button>
         </Grid>
       </Grid>
+
+
+
+      {/*  */}
+      <Editor
+        // editorState={editorState}
+        toolbarClassName="toolbarClassName"
+        wrapperClassName="wrapperClassName"
+        editorClassName="editorClassName"
+        // toolbarOnFocus
+        onEditorStateChange={onEditorStateChange}
+      />
+
+      {/* <textarea
+        disabled
+        value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+      /> */}
+
+
+      {/* QUILL  */}
+      <ReactQuill
+        value={text}
+        // onChange={handleEditorChange}
+        onChange={setValue}
+
+        theme="snow"
+        placeholder={"Write something awesome..."}
+        modules={modules}
+      // formats={formats}
+
+      />
+
+
     </div>
   );
 };
