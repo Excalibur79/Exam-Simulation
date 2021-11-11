@@ -1,5 +1,6 @@
 import e from 'express';
 import mysql from 'mysql2/promise';
+import { scheduleOnServerRestart } from '../utils/examFunctions';
 
 let db: any;
 const connectDatabase = async () => {
@@ -9,8 +10,10 @@ const connectDatabase = async () => {
     password: 'adminDBpassword123',
     database: 'examSimulation',
   });
-  if (db) console.log('Database Connected !');
-  else console.log('Database Not Connected !');
+  if (db) {
+    console.log('Database Connected !');
+    scheduleOnServerRestart();
+  } else console.log('Database Not Connected !');
 };
 
 const getDb = () => {
