@@ -18,7 +18,7 @@ export const scheduleExam = (id: String, date: Date, duration: Number) => {
   date.setSeconds(date.getSeconds() + 15);
   scheduler.scheduleJob(id + 'end', date, () => {
     evaluateExam(id);
-    console.log(id, ' Ended');
+    console.log(id, ' Ended ');
     destroyScheduler(id + 'end');
   });
 };
