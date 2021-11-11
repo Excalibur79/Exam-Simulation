@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
-import CreateExam from './Pages/ExamCreation/ExamCreation1.jsx';
+import CreateExam from './Pages/exam-creation';
 // import Signup from './Pages/Login/SignUp.jsx';
 // import Login from './Pages/Login/Login.jsx';
 
