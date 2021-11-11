@@ -9,5 +9,6 @@ router.get(
   '/createExamParticipantsTable',
   examController.createExamParticipantsTable
 );
+router.post('/editExam', examController.editExam);
 
 export default router;
