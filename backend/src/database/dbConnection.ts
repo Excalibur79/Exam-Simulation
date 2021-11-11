@@ -8,7 +8,11 @@ const connectDatabase = async () => {
     host: 'mydbinstance.cyfjjout6pho.ap-south-1.rds.amazonaws.com',
     user: 'subho57',
     password: 'adminDBpassword123',
+    port: 3306,
     database: 'examSimulation',
+    multipleStatements: true, // Prevent nested sql statements
+    connectTimeout: 60 * 60 * 1000,
+    debug: true,
   });
   if (db) {
     console.log('Database Connected !');

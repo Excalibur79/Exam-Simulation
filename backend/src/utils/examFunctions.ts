@@ -38,7 +38,7 @@ export const evaluateExam = (id: String) => {
 export const scheduleOnServerRestart = async () => {
   const db = getDb();
   let query =
-    'select `id`,`startTime`,`duration` from `Exam` where `startTime`>?';
+    'select `id`,`startTime`,`duration`  from `Exam` where `startTime`>?';
   let [rows] = await db.execute(query, [new Date()]);
   if (rows.length > 0) {
     console.log(rows);
