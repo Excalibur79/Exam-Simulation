@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import { TextField, Grid, Paper, Box, styled } from '@mui/material';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import './examCreation.css';
+import './exam-creation.css';
 import RichEditor from '../../components/text-editor';
 
 const useStyles = makeStyles({
