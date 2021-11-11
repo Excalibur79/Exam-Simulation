@@ -1,7 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import CreateExam from './Pages/ExamCreation/ExamCreation.jsx';
+import CreateExam from './Pages/ExamCreation/ExamCreation1.jsx';
 // import Signup from './Pages/Login/SignUp.jsx';
 // import Login from './Pages/Login/Login.jsx';
 
@@ -13,7 +11,7 @@ const App = () => {
 
       {/* <Route path="/Signup" exact component={Signup} /> */}
       {/* <Route path="/Login" exact component={Login} /> */}
-      <Route path="/create-exam" component={CreateExam} />
+      <Route path='/create-exam' component={CreateExam} />
     </Switch>
   );
 };
