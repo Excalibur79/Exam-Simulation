@@ -10,11 +10,8 @@ const connectDatabase = async () => {
     password: 'adminDBpassword123',
     port: 3306,
     database: 'examSimulation',
-    connectionLimit: 40,
     multipleStatements: true, // Prevent nested sql statements
     connectTimeout: 60 * 60 * 1000,
-    acquireTimeout: 60 * 60 * 1000,
-    timeout: 60 * 60 * 1000,
     debug: true,
   });
   if (db) {
