@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 html {
-    font-size: 10px;
-    /* 1rem = 10px */
+  font-size: 62.5%;
+  /* We are setting the html font size to 10px i.e. 62.5% of 16px (default) */
+  /* So 1rem = 10px */
 }
