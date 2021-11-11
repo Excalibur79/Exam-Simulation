@@ -44,7 +44,7 @@ export const createExam = catchAsync(async (req: Request, res: Response) => {
     data.duration,
   ]);
   if (result) {
-    res.status(200).send('Exam Created');
+    res.status(200).send('Exam  Created');
     scheduler.schedule('* * * * * *', () => {
       // scheduules start exam
     });
