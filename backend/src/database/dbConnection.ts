@@ -12,7 +12,7 @@ const connectDatabase = async () => {
     database: 'examSimulation',
     multipleStatements: true, // Prevent nested sql statements
     connectTimeout: 60 * 60 * 1000,
-    debug: true,
+    // debug: true,
   });
   if (db) {
     console.log('Database Connected !');

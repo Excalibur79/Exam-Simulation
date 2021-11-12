@@ -23,7 +23,7 @@ export const getuser = catchAsync(async (req: CustomRequest, res: Response) => {
 //Register =====================================
 export const registerUser = catchAsync(async (req: Request, res: Response) => {
   const db = getDb();
-  const { name, email, password, institution, phoneNumber } = req.body;
+  const { name, email, password, institution, phoneNumber, age } = req.body;
   if (!name || !email || !password || !institution || !phoneNumber)
     throw new CustomError('Some Fields are missing !', 500);
   let findByEmail = 'select * from `User` where `email`=?';
@@ -31,24 +31,26 @@ export const registerUser = catchAsync(async (req: Request, res: Response) => {
   if (rows.length > 0)
     throw new CustomError('User with this email id already exists !', 500);
   let registerUser =
-    'insert into `User` (`id`,`name`,`email`,`image`,`password`,`institution`,`phoneNumber`) values(?,?,?,?,?,?,?)';
+    'insert into `User` (`id`,`name`,`email`,`image`,`password`,`institution`,`phoneNumber`,`age`) values(?,?,?,?,?,?,?,?)';
   const salt = await bcrypt.genSalt();
   const passwordHash = await bcrypt.hash(password, salt);
+  let id = uuid();
   const result = await db.execute(registerUser, [
-    uuid(),
+    id,
     name,
     email,
     '',
     passwordHash,
     institution,
     phoneNumber,
+    age,
   ]);
   if (result)
     res
       .status(200)
       .json(
         SuccessResponse(
-          { name, email, institution, phoneNumber },
+          { id, name, email, image: '', institution, phoneNumber, age },
           'User Inserted !'
         )
       );
@@ -98,15 +100,19 @@ export const registerInExam = catchAsync(
   }
 );
 
-export const startExam = catchAsync(
-  async (req: CustomRequest, res: Response) => {
-    const db = getDb();
-    const { examId } = req.body;
-    let query = 'select * from `Exam` where id=?';
-    const [rows, fields] = await db.execute(query, [examId]);
-    if (rows.length != 1) throw new CustomError('Exam Not Found !', 500);
-    if (!rows[0].ongoing)
-      throw new CustomError('Exam has not started yet !', 500);
-    return res.status(200).json(SuccessResponse(rows[0], 'Exam started !'));
+export const getExam = catchAsync(async (req: CustomRequest, res: Response) => {
+  const db = getDb();
+  const { examId, email } = req.body;
+  let query = 'select * from `Exam` where id=?';
+  const [rows, fields] = await db.execute(query, [examId]);
+  if (rows.length != 1) throw new CustomError('Exam Not Found !', 500);
+  if (!rows[0].ongoing)
+    throw new CustomError('Exam has not started yet !', 500);
+  if (rows[0].isPrivate) {
+    query =
+      'select * from `Private-Exam-Emails` where `examId`=? and `email`=?';
+    let [rows] = await db.execute(query, [examId, email]);
+    if (rows.length != 1) throw new CustomError('Not allowed !', 401);
   }
-);
+  return res.status(200).json(SuccessResponse(rows[0], 'Exam started !'));
+});

@@ -14,7 +14,7 @@ export const createTables = catchAsync(async (req: Request, res: Response) => {
 
   //User table===================
   query =
-    'create table User ( id varchar(50) not null, name varchar(50) , email varchar(50) ,image longtext, password longtext ,institution longtext ,phoneNumber varchar(50) ,constraint user_pk primary key(id) )';
+    'create table User ( id varchar(50) not null, name varchar(50) , email varchar(50) ,age integer,image longtext, password longtext ,institution longtext ,phoneNumber varchar(50) ,constraint user_pk primary key(id) )';
   result = await db.execute(query);
   if (!result) throw new CustomError('User Table Not   created  !', 500);
   //=============================
@@ -28,7 +28,7 @@ export const createTables = catchAsync(async (req: Request, res: Response) => {
 
   //Exam-Participants table========
   query =
-    'create table `Exam-Participants` (id integer auto_increment ,examId longtext , participantId longtext ,answers json ,totalScore integer , constraint pk primary key(id) )';
+    'create table `Exam-Participants` (id integer auto_increment ,examId varchar(50) , participantId varchar(50) ,answers json ,totalScore integer , finsihTime datetime,constraint pk primary key(id) ,constraint fep1 foreign key (examId) references Exam(id) , constraint fep2 foreign key (participantId) references User(id))';
   result = await db.execute(query);
   if (!result)
     throw new CustomError('Exam-Participants table not created!', 500);

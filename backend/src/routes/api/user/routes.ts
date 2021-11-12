@@ -9,6 +9,6 @@ router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
 router.post('/logout', auth, userController.logoutUser);
 router.post('/edit', upload.single('image'), userController.editUser);
-router.post('/startExam', auth, userController.startExam);
+router.post('/getExam', userController.getExam);
 
 export default router;
