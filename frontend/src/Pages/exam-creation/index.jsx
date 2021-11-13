@@ -4,7 +4,11 @@ import { makeStyles } from '@mui/styles';
 import { TextField, Grid, Paper, Box, styled } from '@mui/material';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import './exam-creation.css';
-import RichEditor from '../../components/text-editor';
+import RichEditor from '../../Components/text-editor';
+import TextInputField from '../../Components/text-input-field';
+import DatePicker from '../../Components/date-time-picker/date.jsx';
+import TimePicker from '../../Components/date-time-picker/time.jsx';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -51,91 +55,83 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+
 const ExamCreation = () => {
+
   const classes = useStyles();
   const history = useHistory();
 
-  // const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
-  const [add, setAdd] = useState(0);
-  const [editors, setEditors] = useState([]);
 
-  const [editorState, SetEditorState] = useState([]);
-  const [text, setText] = useState('');
-  const [editorHtml, seteditorHtml] = useState('');
-  const [value, setValue] = useState('');
-
-  const onEditorStateChange = () => { };
-
-  const handleEditorChange = (value) => {
-    setText({ text: value });
-    console.log(value);
-  };
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
-  const AddQuestionHandler = () => {
-    console.log('a');
-    setEditors([...editors, 0]);
-  };
-
-  useEffect(() => {
-    console.log(editors);
-  }, [editors]);
-
-  console.log(value);
 
   return (
     <div className={classes.root}>
-      <div className={classes.heading}> University of Engineering & Management</div>
+      <div className={classes.heading}> Examination Edit/Creation </div>
 
-      <p style={{ fontSize: '1.89rem', fontWeight: '800' }}> Full Marks : 20 </p>
-      <div>
-        <TextField
-          required
-          id='standard-required'
-          label='Subject'
-          variant='standard'
-          fullWidth={true}
-          inputProps={{ style: { fontSize: '1.6rem' } }}
-          style={{ marginTop: '0.5rem', width: '22rem' }}
-        // InputProps={{ fontSize: '2rem' }}
-        // classes={{ fontSize: '2rem' }}
-        />
-      </div>
+      {/* Section 1  */}
+      <Grid container spacing={2} direction="row" justifyContent="space-between" alignItems="flex-start">
+        <Grid item>
+          {/*  type, handler, value,row, rowMax, multiline */}
+          <TextInputField
+            label="Full Marks"
+            placeholder="full marks"
+            disabled={false}
+            required={true}
+            name="Full Marks"
+            fullWidth={true}
+          />
+        </Grid>
 
-      <div style={{ marginBottom: '9rem', marginTop: '2rem', paddingTop: '1.4rem' }}>
-        <Box lg={{ flexGrow: 1 }}>
-          <Grid container spacing={2} className={classes.addQuestionBar}>
-            <Grid item xs={12} lg={12} md={12}>
-              <Item
-                style={{
-                  fontSize: '2rem',
-                  backgroundColor: '#e63946',
-                  color: '#fff',
-                  fontWeight: '600',
-                }}
-                onClick={() => AddQuestionHandler()}
-              >
-                <AddToPhotosIcon fontSize='large' /> Add Question
-              </Item>
-            </Grid>
-          </Grid>
-        </Box>
-      </div>
+        <Grid item>
+          {/*  type, handler, value,row, rowMax, multiline */}
+          <TextInputField
+            label="Exam Name"
+            placeholder="exam name"
+            disabled={false}
+            required={true}
+            name="Exam Name"
+            fullWidth={true}
+          />
+        </Grid>
 
-      {editors.map((x, index) => {
-        return <RichEditor key={index} />;
-      })}
+        <Grid item>
+          {/*  type, handler, value,row, rowMax, multiline */}
+          <TextInputField
+            label="Full Marks"
+            placeholder="full marks"
+            disabled={false}
+            required={true}
+            name="Full Marks"
+            fullWidth={true}
+          />
+        </Grid>
 
-      <Grid container className={classes.button}>
-        <Grid item xs={12} lg={12} md={12}>
-          <button className='custom-btn btn-9'>Save</button>
+        <Grid item  >
+          <DatePicker
+            // dateTime={date2}
+            label="Examination Date"
+            required={true}
+          // setDateTime={setDate2}
+          />
+        </Grid>
+
+        <Grid item>
+          <TimePicker
+            // dateTime={date2}
+            label="Examination Date"
+            required={true}
+          // setDateTime={setDate2}
+          />
         </Grid>
       </Grid>
+
+
+      {/* Section 2  */}
+      <Grid container spacing={2} direction="row" justifyContent="space-between" alignItems="flex-start">
+        sdf
+      </Grid>
+
     </div>
-  );
-};
+  )
+}
 
 export default ExamCreation;

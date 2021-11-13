@@ -16,42 +16,39 @@ const App = () => {
       fontFamily: "'Inter', sans-serif",
     },
     palette: {
-      mode,
-      ...(mode === 'light'
-        ? {
-            primary: {
-              main: '#1AB273',
-            },
-            divider: '#1AB273',
-            text: {
-              primary: '#000',
-              secondary: '#000',
-            },
-          }
+      mode, ...(mode === 'light' ? {
+        primary: {
+          main: '#1AB273',
+        },
+        divider: '#1AB273',
+        text: {
+          primary: '#000',
+          secondary: '#000',
+        },
+      }
         : {
-            primary: {
-              main: '#1AB273',
-            },
-            divider: '#1AB273',
-            background: {
-              default: '#111',
-              paper: '#111',
-            },
-            text: {
-              primary: '#fff',
-              secondary: '#fff',
-            },
-          }),
+          primary: {
+            main: '#1AB273',
+          },
+          divider: '#1AB273',
+          background: {
+            default: '#111',
+            paper: '#111',
+          },
+          text: {
+            primary: '#fff',
+            secondary: '#fff',
+          },
+        }),
     },
   });
 
-  const colorMode = useMemo(
-    () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
+  const colorMode = useMemo(() => ({
+    // The dark mode switch would invoke this method
+    toggleColorMode: () => {
+      setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    },
+  }),
     []
   );
 
@@ -60,15 +57,13 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <Paper>
-        <Button variant='outlined' onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}>
+        {/* <Button variant='outlined' onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}>
           toggle dark mode
-        </Button>
-        <Switch>
-          {/* <Route path='/' component={ABCD} /> */}
-          {/* PROJECT STARTING :) */}
+        </Button> */}
 
+        <Switch>
           {/* <Route path="/Signup" exact component={Signup} /> */}
           {/* <Route path="/Login" exact component={Login} /> */}
           <Route path='/create-exam' component={CreateExam} />
