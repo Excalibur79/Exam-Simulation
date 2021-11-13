@@ -6,7 +6,8 @@ import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import './exam-creation.css';
 import RichEditor from '../../components/text-editor';
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles(theme => ({
   root: {
     padding: '1.6rem',
     margin: '1rem',
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
     //   backgroundColor: '#1AB273',
     // },
   },
-});
+}));
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -63,7 +64,7 @@ const ExamCreation = () => {
   const [editorHtml, seteditorHtml] = useState('');
   const [value, setValue] = useState('');
 
-  const onEditorStateChange = () => {};
+  const onEditorStateChange = () => { };
 
   const handleEditorChange = (value) => {
     setText({ text: value });
@@ -99,8 +100,8 @@ const ExamCreation = () => {
           fullWidth={true}
           inputProps={{ style: { fontSize: '1.6rem' } }}
           style={{ marginTop: '0.5rem', width: '22rem' }}
-          // InputProps={{ fontSize: '2rem' }}
-          // classes={{ fontSize: '2rem' }}
+        // InputProps={{ fontSize: '2rem' }}
+        // classes={{ fontSize: '2rem' }}
         />
       </div>
 
