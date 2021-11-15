@@ -16,32 +16,30 @@ const App = () => {
       fontFamily: "'Inter', sans-serif",
     },
     palette: {
-      mode,
-      ...(mode === 'light'
-        ? {
-            primary: {
-              main: '#1AB273',
-            },
-            divider: '#1AB273',
-            text: {
-              primary: '#000',
-              secondary: '#000',
-            },
-          }
+      mode, ...(mode === 'light' ? {
+        primary: {
+          main: '#1AB273',
+        },
+        divider: '#1AB273',
+        text: {
+          primary: '#000',
+          secondary: '#000',
+        },
+      }
         : {
-            primary: {
-              main: '#1AB273',
-            },
-            divider: '#1AB273',
-            background: {
-              default: '#111',
-              paper: '#111',
-            },
-            text: {
-              primary: '#fff',
-              secondary: '#fff',
-            },
-          }),
+          primary: {
+            main: '#1AB273',
+          },
+          divider: '#1AB273',
+          background: {
+            default: '#111',
+            paper: '#111',
+          },
+          text: {
+            primary: '#fff',
+            secondary: '#fff',
+          },
+        }),
     },
   });
 
@@ -61,7 +59,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Paper style={{ width: '100%', height: '100vh' }}>
+
+      <Paper style={{ width: '100%', height: '100%' }}>
         <Button variant='outlined' onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}>
           toggle dark mode
         </Button>
