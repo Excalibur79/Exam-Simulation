@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, useTheme } from "@mui/styles";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Grid, Typography, Paper, Input, Box, Button, TextField } from "@mui/material";
 import RichEditor from "../../components/text-editor";
@@ -9,8 +9,7 @@ import TextInputField from "../../components/text-input-field";
 import DatePicker from "../../components/date-time-picker/date";
 import TimePicker from "../../components/date-time-picker/time";
 import DropdownField from "../../components/dropdown-field";
-import palette from 'utilities/palette';
-
+import Bullet from '@mui/icons-material/FiberManualRecord';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: "4rem",
+    marginBottom: "2.6rem",
   },
   buttonStyle: {
-    backgroundColor: palette.primary1,
-    color: palette.white,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.white,
   }
 }));
 
@@ -37,6 +36,7 @@ const ExamCreation = () => {
 
   const classes = useStyles();
   const history = useHistory();
+  const theme = useTheme();
 
   const [selected, setSelected] = useState("");
   const [addNew, setAddNew] = useState(false);
@@ -45,7 +45,9 @@ const ExamCreation = () => {
 
   const [val, setVal] = useState(null);
 
-  console.log("Dropdown  ", selected);
+
+  const [correctOptionArr, setCorrectOptionArr] = useState([]);  // [0,2,4]  arr of index
+  const [index, setIndex] = useState(null);
 
   const AddNewOption = () => {
     console.log("added");
@@ -54,9 +56,20 @@ const ExamCreation = () => {
     setVal('');
   }
 
+  const AddCorrectOption = () => {
+    var arr = [];
+    arr.push(...index);
+    console.log(arr);
+    setCorrectOptionArr([...correctOptionArr, correctOptionArr]);
+    // setAddNew(!addNew);
+    setIndex('');
+  }
+
   useEffect(() => {
-    console.log("MODIFIED ARRAY = ", optionArr);
-  }, [optionArr]);
+    console.log("MODIFIED OPTION ARRAY = ", optionArr);
+    console.log("MODIFIED ANSWER ARRAY = ", correctOptionArr);
+
+  }, [optionArr, correctOptionArr]);
 
 
   const abc = () => {
@@ -92,7 +105,6 @@ const ExamCreation = () => {
         Examination Edit/Creation
       </Typography>
 
-
       <Box style={{ display: 'flex', flexDirection: 'row', p: 1, m: 1, justifyContent: 'flex-end', alignItems: 'center', alignContent: 'center', }}  >
         {ButtonText.map((item, key) => {
           return (
@@ -106,9 +118,8 @@ const ExamCreation = () => {
       </Box>
 
 
-
       {/* Section 1  */}
-      <Grid container spacing={2} direction="row" justifyContent="space-between" alignItems="flex-start">
+      <Grid container spacing={2} direction="row" justifyContent="space-between" alignItems="flex-start" style={{ marginTop: "1.6rem" }}  >
         <Grid item>
           {/*  type, handler, value,row, rowMax, multiline */}
           <TextInputField
@@ -161,7 +172,7 @@ const ExamCreation = () => {
 
 
       {/* Section 2  */}
-      <Grid container direction="row" style={{}} >
+      <Grid container direction="row" style={{ marginTop: "1.6rem" }} >
         <Paper elevation={2} style={{ padding: "1.5rem" }}  >
 
           <Grid item xs={12} lg={4} md={6} >
@@ -184,9 +195,11 @@ const ExamCreation = () => {
             {(selected === 'MCQ - 1 correct option' || selected === 'MCQ - More than 1 correct option') &&
               (
                 <div style={{ paddingLeft: "1.6rem", marginLeft: "1.5rem", marginBottom: "6rem" }} >
-                  <Typography variant='subtitle2' style={{ paddingTop: "2rem", }} >  Options  :   </Typography>
 
-                  <Typography variant='h6' style={{ paddingTop: "2rem", fontWeight: "600" }} onClick={() => setAddNew(!addNew)} >
+                  {/*  ------------------------------------      Options available     ----------------------------------- */}
+                  <Typography variant='h6' style={{ paddingTop: "2rem", }} >  Available Options  :   </Typography>
+
+                  <Typography variant='h6' style={{ paddingTop: ".6rem", fontWeight: "600", color: theme.palette.primary.main }} onClick={() => setAddNew(!addNew)} >
                     <AddCircleIcon style={{ paddingTop: "4px", marginTop: "4px" }} />   Add Option
                   </Typography>
 
@@ -207,7 +220,7 @@ const ExamCreation = () => {
                         </Box>
 
                         <Box>
-                          <Button style={{ backgroundColor: palette.primary1, color: palette.white }} onClick={() => AddNewOption()}  > + ADD </Button>
+                          <Button style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.text.white }} onClick={() => AddNewOption()}  > + ADD </Button>
                         </Box>
                       </Box>
                     )
@@ -221,6 +234,39 @@ const ExamCreation = () => {
                     </>);
                   })}
 
+
+
+                  {/*  ------------------------------------              Correct Options            ----------------------------------- */}
+                  <Typography variant='h6' style={{ paddingTop: "2rem", }} > Correct Options  :   </Typography>
+
+                  <Box style={{ display: 'flex', flexDirection: 'row', p: 1, m: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}  >
+                    <Box sx={{ marginRight: "2rem", paddingBottom: "1.6rem" }} >
+                      <TextField
+                        id="standard-basic"
+                        placeholder="type..."
+                        label="New Option"
+                        variant="standard"
+                        name="newOption"
+                        type="number"
+                        value={index}
+                        onChange={e => setIndex(e.target.value)}
+                        classes={{}}
+                      />
+                    </Box>
+
+                    <Box>
+                      <Button style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.text.white }} onClick={() => AddCorrectOption()}  > + ADD </Button>
+                    </Box>
+                  </Box>
+
+
+                  {correctOptionArr && correctOptionArr.length != 0 && correctOptionArr.map((item, index) => {
+                    return (<>
+                      {/* <div> */}
+                      <Bullet style={{ width: "1rem", height: "1rem" }} />  {item}
+                      {/* </div> */}
+                    </>);
+                  })}
                 </div>
               )}
           </Grid>

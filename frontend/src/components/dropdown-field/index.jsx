@@ -25,7 +25,7 @@ const Dropdown = ({ label, disabled, value, handler, required, options, name, fu
                 name={name}
                 value={value}
                 onChange={handler}
-                inputProps={{ style: { fontSize: '12px' }, }}
+                inputProps={{ style: { fontSize: '13px', alignItems: 'center', alignContent: 'center', justifyContent: 'center' } }}
                 SelectProps={{ native: true }}
                 style={{ marginTop: '0.5rem', width: '18rem', ...style }}
             >

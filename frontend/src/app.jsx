@@ -24,6 +24,8 @@ const App = () => {
         text: {
           primary: '#000',
           secondary: '#000',
+          black: '#000',
+          white: '#fff',
         },
       }
         : {
@@ -43,15 +45,12 @@ const App = () => {
     },
   });
 
-  const colorMode = useMemo(
-    () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    []
-  );
+  const colorMode = useMemo(() => ({
+    // The dark mode switch would invoke this method
+    toggleColorMode: () => {
+      setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    },
+  }), []);
 
   // Update the theme only if the mode changes
   const theme = useMemo(() => createTheme(getDesignTokens(themeMode)), [themeMode]);
