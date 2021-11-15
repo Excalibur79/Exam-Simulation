@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Typography } from '@mui/material';
+import { TextField, Typography, Select, MenuItem } from '@mui/material';
 
 const Dropdown = ({
   label,
@@ -27,27 +27,23 @@ const Dropdown = ({
       </Typography>
 
       <div>
-        <TextField
+        <Select
           fullWidth={fullWidth}
-          select
+          displayEmpty
           size='small'
           variant='outlined'
           name={name}
           value={value}
           onChange={handler}
-          SelectProps={{ native: true }}
           style={{ marginTop: '0.5rem', ...style }}
         >
-          <option value='' disabled>
-            Select
-          </option>
           {options &&
             options.map((item, idx) => (
-              <option key={idx} value={item.value}>
-                {item.label ? item.label : item}
-              </option>
+              <MenuItem key={idx} value={item.value || item}>
+                {item.label || item}
+              </MenuItem>
             ))}
-        </TextField>
+        </Select>
       </div>
     </>
   );

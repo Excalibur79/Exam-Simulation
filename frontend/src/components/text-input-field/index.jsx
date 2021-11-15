@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Typography } from '@mui/material';
+import { TextField, Typography, Button } from '@mui/material';
 
 const TextInputField = ({
   label,
@@ -18,9 +18,13 @@ const TextInputField = ({
   labelStyle = {},
   labelClassName,
   className,
+  variant,
+  showActionBtn = false,
+  actionBtnText = '',
+  actionOnClick = () => {},
 }) => {
   return (
-    <>
+    <div>
       <Typography
         align='left'
         variant='p'
@@ -31,7 +35,7 @@ const TextInputField = ({
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
 
-      <div>
+      <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center' }}>
         <TextField
           fullWidth={fullWidth}
           type={type}
@@ -39,18 +43,23 @@ const TextInputField = ({
           disabled={disabled}
           required={required}
           size='small'
-          variant='outlined'
+          variant={variant || 'outlined'}
           placeholder={placeholder}
           onChange={onChange}
           rows={row}
           rowsMax={rowMax}
           multiline={multiline}
           value={value}
-          style={{ marginTop: '0.5rem', ...style }}
+          style={{ marginRight: '1rem', ...style }}
           className={className}
         />
+        {showActionBtn && (
+          <Button variant='contained' onClick={(e) => actionOnClick(e)}>
+            {actionBtnText}
+          </Button>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

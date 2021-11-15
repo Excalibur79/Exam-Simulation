@@ -27,6 +27,8 @@ const App = () => {
             text: {
               primary: '#000',
               secondary: '#000',
+              black: '#000',
+              white: '#fff',
             },
           }
         : {
@@ -42,6 +44,8 @@ const App = () => {
             text: {
               primary: '#fff',
               secondary: '#fff',
+              black: '#000',
+              white: '#fff',
             },
           }),
     },
@@ -63,7 +67,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Paper elevation={0} style={{ width: '100%', height: '100vh' }}>
+      <Paper elevation={0} style={{ width: '100%', minHeight: '100vh' }}>
         <Button
           variant='outlined'
           style={{ position: 'fixed', top: 0, left: 0 }}
