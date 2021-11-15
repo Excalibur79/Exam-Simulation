@@ -1,12 +1,10 @@
 import React from 'react';
-import './login.css';
-import { TextField, Button, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlankIcon';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import PersonIcon from '@material-ui/icons/Person';
+import { TextField, Button, Divider, FormControlLabel, Checkbox } from '@mui/material';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import PersonIcon from '@mui/icons-material/Person';
+import './login.css';
 
 const Login = () => {
   return (

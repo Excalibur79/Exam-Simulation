@@ -2,10 +2,9 @@ import { useState, useMemo, createContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { amber, grey, deepOrange, green } from '@mui/material/colors';
 import { Button, CssBaseline, Paper } from '@mui/material';
-// import Signup from './pages/login/signup';
-// import Login from './pages/login';
+import Signup from 'pages/auth/signup';
+import Login from 'pages/auth/login';
 
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -77,8 +76,8 @@ const App = () => {
         </Button>
 
         <Switch>
-          {/* <Route path="/Signup" exact component={Signup} /> */}
-          {/* <Route path="/Login" exact component={Login} /> */}
+          <Route path='/signup' exact component={Signup} />
+          <Route path='/login' exact component={Login} />
           <Route path='/create-exam' component={CreateExam} />
         </Switch>
       </Paper>
