@@ -1,6 +1,6 @@
 import { useState, useMemo, createContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import CreateExam from './pages/exam-creation';
+import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { amber, grey, deepOrange, green } from '@mui/material/colors';
 import { Button, CssBaseline, Paper } from '@mui/material';
@@ -16,30 +16,34 @@ const App = () => {
       fontFamily: "'Inter', sans-serif",
     },
     palette: {
-      mode, ...(mode === 'light' ? {
-        primary: {
-          main: '#1AB273',
-        },
-        divider: '#1AB273',
-        text: {
-          primary: '#000',
-          secondary: '#000',
-        },
-      }
+      mode,
+      ...(mode === 'light'
+        ? {
+            primary: {
+              main: '#1AB273',
+              contrastText: '#fff',
+            },
+            divider: '#1AB273',
+            text: {
+              primary: '#000',
+              secondary: '#000',
+            },
+          }
         : {
-          primary: {
-            main: '#1AB273',
-          },
-          divider: '#1AB273',
-          background: {
-            default: '#111',
-            paper: '#111',
-          },
-          text: {
-            primary: '#fff',
-            secondary: '#fff',
-          },
-        }),
+            primary: {
+              main: '#1AB273',
+              contrastText: '#000',
+            },
+            divider: '#1AB273',
+            background: {
+              default: '#111',
+              paper: '#111',
+            },
+            text: {
+              primary: '#fff',
+              secondary: '#fff',
+            },
+          }),
     },
   });
 
@@ -59,10 +63,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-      <Paper style={{ width: '100%', height: '100%' }}>
-        <Button variant='outlined' onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}>
-          toggle dark mode
+      <Paper elevation={0} style={{ width: '100%', height: '100vh' }}>
+        <Button
+          variant='outlined'
+          style={{ position: 'fixed', top: 0, left: 0 }}
+          onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}
+        >
+          Toggle dark mode
         </Button>
 
         <Switch>

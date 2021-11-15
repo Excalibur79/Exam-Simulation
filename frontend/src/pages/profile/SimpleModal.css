@@ -1,0 +1,71 @@
+ /* .modalbody{
+    width: 10vw;
+    height: 10vh;
+} */
+
+
+.reactEasyCrop_Container{
+    position:absolute;
+    width: 70%;
+    height: 70%;
+    left: 10% !important;;
+    top: -8%!important;
+    margin: 6%
+}
+
+
+
+
+
+/* @media (min-width: 1366px){
+    .zoom{
+        margin-top: -3rem;
+    }
+    .zoom p{
+        margin-left: -55rem;
+    }
+    .zoomslider{
+        margin-left: -55rem;
+        margin-top: -5rem;
+    }
+    .rotate{
+        margin-top: -3rem;
+    }
+    .rotate p{
+        margin-left: -30rem;
+    }
+    .rotateslider{
+        margin-left: -30rem;
+        margin-top: -5rem;
+    }
+}
+
+@media (min-width: 1440px){
+    .slider{
+        margin-right: -2.8rem;
+    }
+}
+
+@media (min-width: 1536px){
+    .slider{
+        margin-right: -5.3rem;
+    }
+}
+
+@media (min-width: 1600px){
+    .slider{
+        margin-right: -5.8rem;
+    }
+}
+
+@media (min-width: 1680px){
+    .slider{
+        margin-right: -9rem;
+    }
+}
+
+@media (min-width: 1920px){
+    .slider{
+        margin-right: -15rem;
+    }
+} */
