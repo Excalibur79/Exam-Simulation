@@ -21,7 +21,7 @@ export const createTables = catchAsync(async (req: Request, res: Response) => {
 
   //Exam table==================
   query =
-    'create table `Exam` ( id varchar(50) , subject varchar(50) ,userId varchar(50), questions json , startTime datetime , duration integer ,ongoing boolean default False, isPrivate boolean default False , constraint exam_pk primary key(id) ,constraint fk1 foreign key (userId) references User(id) )';
+    'create table `Exam` ( id varchar(50) , subject varchar(50) ,userId varchar(50), questions json , startTime datetime , duration integer ,ongoing boolean default False, isPrivate boolean default False ,numberOfParticipants integer, constraint exam_pk primary key(id) ,constraint fk1 foreign key (userId) references User(id) )';
   result = await db.execute(query);
   if (!result) throw new CustomError('Exam Table not created !', 500);
   //============================
