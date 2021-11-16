@@ -9,6 +9,7 @@ import DatePicker from 'components/date-time-picker/date';
 import TimePicker from 'components/date-time-picker/time';
 import DropdownField from 'components/dropdown-field';
 import Bullet from '@mui/icons-material/FiberManualRecord';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,7 @@ const ExamCreation = () => {
 
   const [correctOptionArr, setCorrectOptionArr] = useState([]); // [0,2,4]  arr of index
   const [newCorrectOption, setNewCorrectOption] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   const AddNewOption = () => {
     if (!newOption || !newOption.trim()) return;
@@ -83,6 +85,21 @@ const ExamCreation = () => {
 
   return (
     <div className={classes.root}>
+      <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
+        <DialogTitle>New Modal here</DialogTitle>
+        <DialogContent>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur sed natus magnam, dolore eius placeat velit, ducimus
+          deserunt, laboriosam atque blanditiis! Fuga consequatur culpa quam sunt ut, esse quis possimus velit voluptatum deserunt
+          fugiat sapiente unde non, repellendus aspernatur. At, accusantium corporis repudiandae perferendis eum eaque.
+          Necessitatibus sapiente sit voluptas officiis repellat error repellendus sunt facere libero, assumenda sed? Ratione quas
+          commodi architecto nihil voluptatum, laudantium, unde iure atque fugiat vitae perspiciatis explicabo. Neque, cum nihil
+          autem pariatur illum sequi, tempore, culpa dolores tenetur corrupti veniam deserunt vel porro. Aut, minus? Beatae
+          officiis, praesentium incidunt asperiores magni assumenda ea non!
+          <DialogActions>
+            <Button onClick={() => setOpenModal(false)}>Close</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
       <Typography className={classes.heading}>Examination Edit/Creation</Typography>
 
       <Box
@@ -93,6 +110,10 @@ const ExamCreation = () => {
           alignContent: 'center',
         }}
       >
+        <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
+          Open Test Modal
+        </Button>
+
         {ButtonText.map((item, key) => {
           return (
             <>
