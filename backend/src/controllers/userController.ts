@@ -100,19 +100,28 @@ export const registerInExam = catchAsync(
     const { examId, userId, email } = req.body;
     //check if the ids are valid then insert in exam-participants table
     query =
-      'select isPrivate,count(*) as examExists from `Exam` where `id`=? limit 1';
+      'select isPrivate,userId as creatorId,count(*) as examExists from `Exam` where `id`=? limit 1';
     let [rows] = await db.execute(query, [examId]);
     console.log(rows);
-    let { isPrivate, examExists } = rows[0];
+    let { isPrivate, creatorId, examExists } = rows[0];
     if (!examExists) throw new CustomError('Exam not Found', 500);
+    if (creatorId === userId)
+      throw new CustomError('Creator cannot give Exam !', 500);
     if (isPrivate) {
       query =
         'select count(*) as userAllowed from `Private-Exam-Emails` where `email`=? limit 1';
       let [rows] = await db.execute(query, [email]);
-      console.log(rows);
+      //console.log(rows);
       if (!rows[0].userAllowed)
         throw new CustomError('Not allowed to enter !', 404);
     }
+
+    query =
+      'select count(*) as alreadyRegistered from `Exam-Participants` where `participantId`=? and `examId`=? limit 1';
+    [rows] = await db.execute(query, [userId, examId]);
+    if (rows[0].alreadyRegistered)
+      throw new CustomError('User already Registered !', 500);
+
     query =
       'insert into `Exam-Participants` (`examId`,`participantId`) values(?,?)';
     let result = await db.execute(query, [examId, userId]);
@@ -123,16 +132,16 @@ export const registerInExam = catchAsync(
 
 export const getExam = catchAsync(async (req: CustomRequest, res: Response) => {
   const db = getDb();
-  const { examId, email } = req.body;
+  const { examId, userId } = req.body;
   let query = 'select * from `Exam` where `id`=? limit 1';
-  let [rows] = await db.execute(query, [examId]);
-  if (rows.length != 1) throw new CustomError('Exam not found !', 500);
-  if (!rows[0].ongoing)
+  let [examRows] = await db.execute(query, [examId]);
+  if (examRows.length != 1) throw new CustomError('Exam not found !', 500);
+  if (!examRows[0].ongoing)
     throw new CustomError('Exam has not started yet !', 500);
   query =
-    'select count(*) as userRegistered from `Exam-Participants` where `email`=? limit 1';
-  [rows] = await db.execute(query, [email]);
+    'select count(*) as userRegistered from `Exam-Participants` where `participantId`=? limit 1';
+  let [rows] = await db.execute(query, [userId]);
   if (!rows[0].userRegistered)
     throw new CustomError('User not yet Registered !', 500);
-  res.status(200).json(SuccessResponse(rows[0], 'Exam Started !'));
+  res.status(200).json(SuccessResponse(examRows[0], 'Exam Started !'));
 });
