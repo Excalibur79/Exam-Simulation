@@ -2,13 +2,22 @@ import scheduler from 'node-schedule';
 import { getDb } from '../database/dbConnection';
 
 interface examInterface {
-  id: String;
-  userId: String;
-  questions: JSON;
+  id: string;
+  userId: string;
+  image: string;
+  tags: string;
+  questions: string;
   startTime: Date;
   duration: Number;
   ongoing: boolean;
+  finished: boolean;
 }
+
+export const parseExam = (examObject: examInterface): examInterface => {
+  examObject.tags = JSON.parse(examObject.tags);
+  examObject.questions = JSON.parse(examObject.questions);
+  return examObject;
+};
 
 export const scheduleExam = (id: String, date: Date, duration: Number) => {
   scheduler.scheduleJob(id + 'start', date, () => {
