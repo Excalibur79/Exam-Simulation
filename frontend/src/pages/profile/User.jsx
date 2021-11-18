@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import user from 'assets/user.png';
+import user from 'assets/icons/user.png';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';

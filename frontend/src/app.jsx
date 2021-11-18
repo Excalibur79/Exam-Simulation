@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, CssBaseline, Paper } from '@mui/material';
 import Signup from 'pages/auth/signup';
 import Login from 'pages/auth/login';
-
+import User from 'pages/profile/User';
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
 
@@ -79,6 +79,7 @@ const App = () => {
           <Route path='/signup' exact component={Signup} />
           <Route path='/login' exact component={Login} />
           <Route path='/create-exam' component={CreateExam} />
+          <Route path='/profile' component={User} />
         </Switch>
       </Paper>
     </ThemeProvider>
