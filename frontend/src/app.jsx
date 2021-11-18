@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, CssBaseline, Paper } from '@mui/material';
+import Navbar from 'components/navbar';
 import Signup from 'pages/auth/signup';
 import Login from 'pages/auth/login';
 import User from 'pages/profile/User';
@@ -60,6 +61,10 @@ const App = () => {
     []
   );
 
+  const toggleTheme = () => {
+    setThemeMode((t) => (t === 'light' ? 'dark' : 'light'));
+  };
+
   // Update the theme only if the mode changes
   const theme = useMemo(() => createTheme(getDesignTokens(themeMode)), [themeMode]);
 
@@ -67,14 +72,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper elevation={0} style={{ width: '100%', minHeight: '100vh' }}>
-        <Button
-          variant='outlined'
-          style={{ position: 'fixed', top: 0, left: 0 }}
-          onClick={(e) => setThemeMode((t) => (t === 'light' ? 'dark' : 'light'))}
-        >
-          Toggle dark mode
-        </Button>
-
+        <Navbar toggleTheme={toggleTheme} />
         <Switch>
           <Route path='/signup' exact component={Signup} />
           <Route path='/login' exact component={Login} />

@@ -10,6 +10,25 @@ import TimePicker from 'components/date-time-picker/time';
 import DropdownField from 'components/dropdown-field';
 import Bullet from '@mui/icons-material/FiberManualRecord';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
+import Header from 'components/header';
+import SpeedDial from 'components/speed-dial';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  {
+    icon: <FileCopyIcon />,
+    name: 'Copy',
+    onClick: () => {
+      alert(1);
+    },
+  },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,8 +119,10 @@ const ExamCreation = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <Typography className={classes.heading}>Examination Edit/Creation</Typography>
-
+      <Header title='Examination Edit/Creation' description='Create your exam here' />
+      <SpeedDial actions={actions} />
+      <SpeedDial grid cols={5} actions={actions} style={{ position: 'fixed', bottom: 16, right: 100 }} />
+      {/* <Typography className={classes.heading}>Examination Edit/Creation</Typography> */}
       <Box
         style={{
           display: 'flex',
@@ -110,7 +131,7 @@ const ExamCreation = () => {
           alignContent: 'center',
         }}
       >
-        <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
+        {/* <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
           Open Test Modal
         </Button>
 
@@ -122,7 +143,7 @@ const ExamCreation = () => {
               </Box>
             </>
           );
-        })}
+        })} */}
       </Box>
 
       {/* Section 1  */}
@@ -145,81 +166,87 @@ const ExamCreation = () => {
       </Grid>
 
       {/* Section 2  */}
-      <Grid container direction='row' style={{ marginTop: '1.6rem' }}>
-        <Paper elevation={2} style={{ padding: '1.5rem' }}>
-          <Grid item xs={12} lg={4} md={6}>
-            <div style={{ paddingBottom: '1.5rem' }}>
-              <DropdownField
-                label='Question Type'
-                placeholder='question type'
-                name='Question Type'
-                required
-                fullWidth={true}
-                options={Options}
-                value={questionType}
-                handler={(e) => setQuestionType(e.target.value)}
-              />
-            </div>
-            {/* Editor  */}
-            <RichEditor />
-            {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
-              <Box style={{ marginBottom: '6rem', width: 500 }}>
-                <Box style={{ marginTop: '2rem' }}>
-                  <Typography variant='h6'>Available Options :</Typography>
+      <div style={{ marginTop: '1.6rem', display: 'flex', justifyContent: 'space-between' }}>
+        <Paper elevation={2} style={{ padding: '1.5rem', overflowY: 'auto', height: '54rem' }}>
+          <div style={{ paddingBottom: '1.5rem' }}>
+            <DropdownField
+              label='Question Type'
+              placeholder='question type'
+              name='Question Type'
+              required
+              fullWidth={true}
+              options={Options}
+              value={questionType}
+              handler={(e) => setQuestionType(e.target.value)}
+            />
+          </div>
+          {/* Editor  */}
+          <RichEditor />
+          {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
+            <Box style={{ marginBottom: '6rem', width: 500 }}>
+              <Box style={{ marginTop: '2rem' }}>
+                <Typography variant='h6'>Available Options :</Typography>
 
-                  <Box style={{ display: 'flex', alignItems: 'center' }}>
-                    <TextInputField
-                      label='New Option'
-                      placeholder='Helo World'
-                      variant='standard'
-                      value={newOption}
-                      onChange={(e) => setNewOption(e.target.value)}
-                      showActionBtn
-                      actionBtnText='Add'
-                      actionOnClick={(e) => AddNewOption()}
-                    />
-                  </Box>
-                  <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
-                    {optionArr &&
-                      optionArr.length != 0 &&
-                      optionArr.map((item, index) => (
-                        <Box style={{ marginBottom: '0.2rem' }}>
-                          {index + 1}) {item.data}
-                        </Box>
-                      ))}
-                  </Box>
+                <Box style={{ display: 'flex', alignItems: 'center' }}>
+                  <TextInputField
+                    label='New Option'
+                    placeholder='Helo World'
+                    variant='standard'
+                    value={newOption}
+                    onChange={(e) => setNewOption(e.target.value)}
+                    showActionBtn
+                    actionBtnText='Add'
+                    actionOnClick={(e) => AddNewOption()}
+                  />
                 </Box>
-                <Box style={{ marginTop: '1.5rem' }}>
-                  <Typography variant='h6'>Correct Options :</Typography>
-                  <Box style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <TextInputField
-                      label='Correct Option Id'
-                      placeholder='1'
-                      name='newOption'
-                      type='number'
-                      variant='standard'
-                      value={newCorrectOption}
-                      onChange={(e) => setNewCorrectOption(e.target.value)}
-                      showActionBtn
-                      actionBtnText='Add'
-                      actionOnClick={(e) => addCorrectOption()}
-                    />
-                  </Box>
-                  <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
-                    {correctOptionArr &&
-                      correctOptionArr.length != 0 &&
-                      correctOptionArr.map((item, index) => (
-                        <span style={{ marginRight: '1rem' }}>
-                          <Bullet style={{ width: '1rem', height: '1rem' }} /> {item}
-                        </span>
-                      ))}
-                  </Box>
+                <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
+                  {optionArr &&
+                    optionArr.length != 0 &&
+                    optionArr.map((item, index) => (
+                      <Box style={{ marginBottom: '0.2rem' }}>
+                        {index + 1}) {item.data}
+                      </Box>
+                    ))}
                 </Box>
               </Box>
-            )}
-          </Grid>
+              <Box style={{ marginTop: '1.5rem' }}>
+                <Typography variant='h6'>Correct Options :</Typography>
+                <Box style={{ display: 'flex', alignItems: 'flex-end' }}>
+                  <TextInputField
+                    label='Correct Option Id'
+                    placeholder='1'
+                    name='newOption'
+                    type='number'
+                    variant='standard'
+                    value={newCorrectOption}
+                    onChange={(e) => setNewCorrectOption(e.target.value)}
+                    showActionBtn
+                    actionBtnText='Add'
+                    actionOnClick={(e) => addCorrectOption()}
+                  />
+                </Box>
+                <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
+                  {correctOptionArr &&
+                    correctOptionArr.length != 0 &&
+                    correctOptionArr.map((item, index) => (
+                      <span style={{ marginRight: '1rem' }}>
+                        <Bullet style={{ width: '1rem', height: '1rem' }} /> {item}
+                      </span>
+                    ))}
+                </Box>
+              </Box>
+            </Box>
+          )}
         </Paper>
-      </Grid>
+        <div style={{ width: '30%' }}>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, possimus esse est voluptatem aut rerum voluptatibus,
+          eos veritatis fuga vel cumque facilis dignissimos. Placeat blanditiis et nam magnam. Quas maxime fugit corporis beatae
+          fuga accusamus rem odit tempora qui repellendus quo, cumque unde repellat eius similique saepe dolore nobis! Porro
+          officia, in tenetur, aut voluptatem dolor esse quas corrupti explicabo nihil fugit voluptatum excepturi quae qui aperiam
+          ab neque sunt alias distinctio saepe? Quibusdam sed, officiis atque ab deleniti error ad fuga quidem, at aspernatur modi
+          vero magni eligendi! Enim adipisci commodi tenetur praesentium debitis amet deleniti necessitatibus aspernatur minima?
+        </div>
+      </div>
     </div>
   );
 };

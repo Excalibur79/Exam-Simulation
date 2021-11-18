@@ -4,8 +4,8 @@ import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver';
 import 'tinymce/themes/mobile';
 import 'tinymce/icons/default';
+// import 'tinymce/skins/ui/oxide-dark/skin.min.css';
 import 'tinymce/skins/ui/oxide/skin.min.css';
-import 'tinymce/skins/ui/oxide-dark/skin.min.css';
 // importing the plugin js.
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
